@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 export default function RestaurantDetails() {
@@ -6,9 +7,9 @@ export default function RestaurantDetails() {
 			<main className="max-w-screen-2xl m-auto bg-white">
 				{/* NAVBAR */}
 				<nav className="bg-white p-2 flex justify-between">
-					<a href="" className="font-bold text-gray-700 text-2xl">
+					<Link href="/" className="font-bold text-gray-700 text-2xl">
 						OpenTable
-					</a>
+					</Link>
 					<div>
 						<div className="flex">
 							<button className="bg-blue-400 text-white border p-1 px-4 rounded mr-3">
@@ -31,18 +32,16 @@ export default function RestaurantDetails() {
 				{/* HEADER */} {/* DESCRIPTION PORTION */}
 				<div className="flex m-auto w-2/3 justify-between items-start 0 -mt-11">
 					<div className="bg-white w-[70%] rounded p-3 shadow">
-						{/* RESAURANT NAVBAR */}
+						{/* RESTAURANT NAVBAR */}
 						<nav className="flex text-reg border-b pb-2">
-							<a href="" className="mr-7">
-								{' '}
-								Overview{' '}
-							</a>
-							<a href="" className="mr-7">
-								{' '}
-								Menu{' '}
-							</a>
+							<Link href="/restaurant/name" className="mr-7">
+								Overview
+							</Link>
+							<Link href="/restaurant/name/menu" className="mr-7">
+								Menu
+							</Link>
 						</nav>
-						{/* RESAURANT NAVBAR */} {/* TITLE */}
+						{/* RESTAURANTS NAVBAR */} {/* TITLE */}
 						<div className="mt-4 border-b pb-6">
 							<h1 className="font-bold text-6xl">Milesstone Grill</h1>
 						</div>
@@ -103,7 +102,7 @@ export default function RestaurantDetails() {
 						</div>
 						{/* IMAGES */} {/* REVIEWS */}
 						<div>
-							<h1 className="font-bold text-3xl mt-10 mb-7 borber-b pb-5">
+							<h1 className="font-bold text-3xl mt-10 mb-7 border-b pb-5">
 								What 100 people are saying
 							</h1>
 							<div>
@@ -181,7 +180,7 @@ export default function RestaurantDetails() {
 						</div>
 					</div>
 				</div>
-				{/* DESCRIPTION PORTION */} {/* RESERVATION CARD PORTION */}{' '}
+				{/* DESCRIPTION PORTION */} {/* RESERVATION CARD PORTION */}
 				{/* RESERVATION
     CARD PORTION */}
 			</main>
