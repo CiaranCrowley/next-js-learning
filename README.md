@@ -1,5 +1,11 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+# Routes
+```
+localhost:8090
+/restaurant/[name]
+/restaurant/[name]/menu
+/search
+/reserve/[name]
+```
 ## Getting Started
 
 First, run the development server:
