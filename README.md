@@ -1,10 +1,10 @@
 # Routes
 ```
 localhost:8090
-/restaurant/[name]
-/restaurant/[name]/menu
+/restaurant/[slug]
+/restaurant/[slug]/menu
 /search
-/reserve/[name]
+/reserve/[slug]
 ```
 ## Getting Started
 
