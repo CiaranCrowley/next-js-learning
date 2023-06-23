@@ -11,7 +11,7 @@ import ReservationsCard from "./components/ReservationsCard";
 export default function RestaurantDetails() {
 	return (
 		<>
-			<div className="bg-white w-[70%] rounded p-3 shadow">
+			<div className="w-[70%] rounded bg-white p-3 shadow">
 				<RestaurantNavBar />
 				<Title />
 				<Rating />
@@ -19,7 +19,7 @@ export default function RestaurantDetails() {
 				<Images />
 				<Reviews />
 			</div>
-			<div className="w-[27%] relative text-reg">
+			<div className="text-reg relative w-[27%]">
 				<ReservationsCard />
 			</div>
 		</>
