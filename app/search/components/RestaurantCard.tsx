@@ -20,7 +20,7 @@ export default function RestaurantCard({
 }) {
 	return (
 		<div className="flex border-b p-5">
-			<img src={restaurant.main_img} alt="" className="h-44 w-44 rounded" />
+			<img src={restaurant.main_img} alt="" className="h-36 w-44 rounded" />
 			<div className="pl-5">
 				<h2 className="text-3xl">{restaurant.name}</h2>
 				<div className="flex items-start">
