@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 import SearchSidebar from "./components/SearchSidebar";
 import RestaurantCard from "./components/RestaurantCard";
-import { PrismaClient } from "@prisma/client";
+import { ITEM_Price, PrismaClient } from "@prisma/client";
 
 export const metadata = {
 	title: "Search | OpenTable",
@@ -47,7 +47,7 @@ const fetchCuisines = async () => {
 export default async function Search({
 	searchParams,
 }: {
-	searchParams: { city: string };
+	searchParams: { city?: string; cuisine?: string; price?: ITEM_Price };
 }) {
 	const restaurants = await fetchRestaurantsByCity(searchParams.city);
 	const locations = await fetchLocations();
@@ -57,7 +57,11 @@ export default async function Search({
 		<>
 			<Header />
 			<div className="m-auto flex w-2/3 items-start justify-between py-4">
-				<SearchSidebar location={locations} cuisine={cuisines} />
+				<SearchSidebar
+					location={locations}
+					cuisine={cuisines}
+					searchParams={searchParams}
+				/>
 				<div className="ml-4 w-5/6">
 					{restaurants.length ? (
 						<>
