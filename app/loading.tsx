@@ -10,9 +10,7 @@ export default function Loading() {
 					<div
 						key={num}
 						className="m-3 h-72 w-64 animate-pulse cursor-pointer overflow-hidden rounded border bg-slate-200"
-					>
-						123
-					</div>
+					></div>
 				))}
 			</div>
 		</main>
