@@ -2,45 +2,82 @@
 
 import React from "react";
 
-export default function AuthModalInputs() {
+interface Props {
+	inputs: {
+		first_name: string;
+		last_name: string;
+		email: string;
+		phone: string;
+		city: string;
+		password: string;
+	};
+	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	isSignedIn: boolean;
+}
+
+export default function AuthModalInputs({
+	inputs,
+	handleChange,
+	isSignedIn,
+}: Props) {
 	return (
 		<div>
-			<div className="just-between my-3 flex text-sm">
-				<input
-					type="text"
-					className="mr-1 w-[50%] rounded border p-2 py-3"
-					placeholder="First Name"
-				/>
-				<input
-					type="text"
-					className="w-[50%] rounded border p-2 py-3"
-					placeholder="Last Name"
-				/>
-			</div>
+			{isSignedIn ? null : (
+				<div className="just-between my-3 flex text-sm">
+					<input
+						type="text"
+						className="mr-1 w-[50%] rounded border p-2 py-3"
+						placeholder="First Name"
+						value={inputs.first_name}
+						onChange={handleChange}
+						name="first_name"
+					/>
+					<input
+						type="text"
+						className="w-[50%] rounded border p-2 py-3"
+						placeholder="Last Name"
+						value={inputs.last_name}
+						onChange={handleChange}
+						name="last_name"
+					/>
+				</div>
+			)}
 			<div className="just-between my-3 flex text-sm">
 				<input
 					type="email"
 					className="w-full rounded border p-2 py-3"
 					placeholder="Email"
+					value={inputs.email}
+					name="email"
 				/>
 			</div>
-			<div className="just-between my-3 flex text-sm">
-				<input
-					type="text"
-					className="mr-1 w-[50%] rounded border p-2 py-3"
-					placeholder="Phone"
-				/>
-				<input
-					type="text"
-					className="w-[50%] rounded border p-2 py-3"
-					placeholder="City"
-				/>
-			</div>
+
+			{isSignedIn ? null : (
+				<div className="just-between my-3 flex text-sm">
+					<input
+						type="text"
+						className="mr-1 w-[50%] rounded border p-2 py-3"
+						placeholder="Phone"
+						value={inputs.phone}
+						name="phone"
+					/>
+					<input
+						type="text"
+						className="w-[50%] rounded border p-2 py-3"
+						placeholder="City"
+						value={inputs.city}
+						name="city"
+					/>
+				</div>
+			)}
 			<div className="just-between my-3 flex text-sm">
 				<input
 					type="password"
 					className="w-full rounded border p-2 py-3"
 					placeholder="Password"
+					value={inputs.password}
+					onChange={(e) => {}}
+					name="password"
 				/>
 			</div>
 		</div>
