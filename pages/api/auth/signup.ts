@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "@prisma/client";
 import validator from "validator";
+import bcrypt, { hash } from "bcrypt";
+
+const prisma = new PrismaClient();
 
 export default async function handler(
 	req: NextApiRequest,
@@ -53,8 +57,33 @@ export default async function handler(
 			return res.status(400).json({ errorMessage: errors[0] });
 		}
 
+		const userWithEmail = await prisma.user.findUnique({
+			where: {
+				email,
+			},
+		});
+
+		if (userWithEmail) {
+			return res
+				.status(400)
+				.json({ errorMessage: "Email is associated with another account" });
+		}
+
+		const hashedPassword = await bcrypt.hash(password, 10);
+
+		const user = await prisma.user.create({
+			data: {
+				first_name: first_name,
+				last_name: last_name,
+				email: email,
+				phone: phone,
+				city: city,
+				password: hashedPassword,
+			},
+		});
+
 		res.status(200).json({
-			hello: first_name,
+			hello: user,
 		});
 	} else {
 		res.status(200).json({
