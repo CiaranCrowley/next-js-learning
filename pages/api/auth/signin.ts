@@ -57,7 +57,7 @@ export default async function handler(
 				.json({ errorMessage: "Email or password is invalid" });
 		}
 
-    const alg = "HS256";
+		const alg = "HS256";
 		const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
 		const token = await new jose.SignJWT({ email: userWithEmail.email })
@@ -68,7 +68,6 @@ export default async function handler(
 		return res.status(200).json({
 			token,
 		});
-
 	}
-  return res.status(404).json("Unknown endpoint");
+	return res.status(404).json("Unknown endpoint");
 }
