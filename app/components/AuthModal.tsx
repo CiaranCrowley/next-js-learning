@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -20,9 +20,7 @@ const style = {
 
 export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
-
+	const [disabled, setDisabled] = useState(true);
 	const [inputs, setInputs] = useState({
 		first_name: "",
 		last_name: "",
@@ -31,6 +29,29 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 		city: "",
 		password: "",
 	});
+
+	useEffect(() => {
+		if (isSignedIn) {
+			if (inputs.password && inputs.email) {
+				return setDisabled(false);
+			}
+		} else {
+			if (
+				inputs.first_name &&
+				inputs.last_name &&
+				inputs.email &&
+				inputs.phone &&
+				inputs.city &&
+				inputs.password
+			) {
+				return setDisabled(false);
+			}
+		}
+		setDisabled(true);
+	}, [inputs]);
+
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 
 	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputs({
@@ -74,8 +95,15 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 									"Create Your OpenTable Account"
 								)}
 							</h2>
-							<AuthModalInputs inputs={inputs} handleChange={handleChangeInput} isSignedIn={isSignedIn}/>
-							<button className="mb-5 w-full rounded bg-red-600 p-3 text-sm uppercase text-white disabled:bg-gray-400">
+							<AuthModalInputs
+								inputs={inputs}
+								handleChange={handleChangeInput}
+								isSignedIn={isSignedIn}
+							/>
+							<button
+								className="mb-5 w-full rounded bg-red-600 p-3 text-sm uppercase text-white disabled:bg-gray-400"
+								disabled={disabled}
+							>
 								{renderContent("Sign in", "Create Account")}
 							</button>
 						</div>
