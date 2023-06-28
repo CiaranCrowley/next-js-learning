@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import AuthModalInputs from "./AuthModalInputs";
+import useAuth from "@/hooks/useAuth";
 
 const style = {
 	position: "absolute" as "absolute",
@@ -21,6 +22,7 @@ const style = {
 export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 	const [open, setOpen] = useState(false);
 	const [disabled, setDisabled] = useState(true);
+	const { signIn } = useAuth();
 	const [inputs, setInputs] = useState({
 		first_name: "",
 		last_name: "",
@@ -52,6 +54,14 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
+
+	const handleClick = () => {
+		if (isSignedIn) {
+			signIn({ email: inputs.email, password: inputs.password });
+		} else {
+			
+		}
+	};
 
 	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputs({
@@ -103,6 +113,7 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 							<button
 								className="mb-5 w-full rounded bg-red-600 p-3 text-sm uppercase text-white disabled:bg-gray-400"
 								disabled={disabled}
+								onClick={handleClick}
 							>
 								{renderContent("Sign in", "Create Account")}
 							</button>
