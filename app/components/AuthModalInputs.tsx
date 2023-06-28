@@ -48,6 +48,7 @@ export default function AuthModalInputs({
 					className="w-full rounded border p-2 py-3"
 					placeholder="Email"
 					value={inputs.email}
+					onChange={handleChange}
 					name="email"
 				/>
 			</div>
@@ -59,6 +60,7 @@ export default function AuthModalInputs({
 						className="mr-1 w-[50%] rounded border p-2 py-3"
 						placeholder="Phone"
 						value={inputs.phone}
+						onChange={handleChange}
 						name="phone"
 					/>
 					<input
@@ -66,6 +68,7 @@ export default function AuthModalInputs({
 						className="w-[50%] rounded border p-2 py-3"
 						placeholder="City"
 						value={inputs.city}
+						onChange={handleChange}
 						name="city"
 					/>
 				</div>
@@ -76,7 +79,7 @@ export default function AuthModalInputs({
 					className="w-full rounded border p-2 py-3"
 					placeholder="Password"
 					value={inputs.password}
-					onChange={(e) => {}}
+					onChange={handleChange}
 					name="password"
 				/>
 			</div>
