@@ -23,7 +23,7 @@ export default function NavBar() {
 								className="mr-3 rounded border bg-blue-400 p-1  px-4 text-white"
 								onClick={signOut}
 							>
-								Logout
+								Sign out
 							</button>
 						) : (
 							<>
