@@ -22,7 +22,7 @@ const style = {
 };
 
 export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
-	const { signIn } = useAuth();
+	const { signIn, signUp } = useAuth();
 	const { loading, data, error, setAuthState } = useContext(
 		AuthenticationContext
 	);
@@ -67,6 +67,8 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 				{ email: inputs.email, password: inputs.password },
 				handleClose
 			);
+		} else {
+			signUp(inputs, handleClose);
 		}
 	};
 

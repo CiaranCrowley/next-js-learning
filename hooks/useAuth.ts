@@ -47,7 +47,57 @@ const useAuth = () => {
 		}
 	};
 
-	const signUp = () => {};
+	const signUp = async (
+		{
+			first_name,
+			last_name,
+			email,
+			password,
+			city,
+			phone,
+		}: {
+			first_name: string;
+			last_name: string;
+			email: string;
+			password: string;
+			city: string;
+			phone: string;
+		},
+		handleClose: () => void
+	) => {
+		setAuthState({
+			loading: true,
+			data: null,
+			error: null,
+		});
+
+		try {
+			const response = await axios.post(
+				"http://localhost:8090/api/auth/signup",
+				{
+					first_name,
+					last_name,
+					email,
+					password,
+					city,
+					phone,
+				}
+			);
+			console.log(response);
+			setAuthState({
+				loading: false,
+				data: response.data,
+				error: null,
+			});
+			handleClose();
+		} catch (error: any) {
+			setAuthState({
+				loading: false,
+				data: null,
+				error: error.response.data.errorMessage,
+			});
+		}
+	};
 
 	return { signIn, signUp };
 };
