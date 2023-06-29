@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import AuthModalInputs from "./AuthModalInputs";
 import useAuth from "@/hooks/useAuth";
+import { AuthenticationContext } from "../context/AuthContext";
+import { CircularProgress } from "@mui/material";
 
 const style = {
 	position: "absolute" as "absolute",
@@ -20,9 +22,13 @@ const style = {
 };
 
 export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
+	const { signIn } = useAuth();
+	const { loading, data, error, setAuthState } = useContext(
+		AuthenticationContext
+	);
+
 	const [open, setOpen] = useState(false);
 	const [disabled, setDisabled] = useState(true);
-	const { signIn } = useAuth();
 	const [inputs, setInputs] = useState({
 		first_name: "",
 		last_name: "",
@@ -59,7 +65,6 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 		if (isSignedIn) {
 			signIn({ email: inputs.email, password: inputs.password });
 		} else {
-			
 		}
 	};
 
@@ -92,33 +97,39 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 				aria-describedby="modal-modal-description"
 			>
 				<Box sx={style}>
-					<div className="h-[600px] p-2">
-						<div className="mb-2 border-b pb-2 text-center font-bold uppercase">
-							<p className="text sm">
-								{renderContent("Sign In", "Create Account")}
-							</p>
+					{loading ? (
+						<div className="flex h-[600px] justify-center px-2 py-24">
+							<CircularProgress className="text-red-600" />
 						</div>
-						<div className="m-auto">
-							<h2 className="text-center text-2xl font-light">
-								{renderContent(
-									"Log in",
-									"Create Your OpenTable Account"
-								)}
-							</h2>
-							<AuthModalInputs
-								inputs={inputs}
-								handleChange={handleChangeInput}
-								isSignedIn={isSignedIn}
-							/>
-							<button
-								className="mb-5 w-full rounded bg-red-600 p-3 text-sm uppercase text-white disabled:bg-gray-400"
-								disabled={disabled}
-								onClick={handleClick}
-							>
-								{renderContent("Sign in", "Create Account")}
-							</button>
+					) : (
+						<div className="h-[600px] p-2">
+							<div className="mb-2 border-b pb-2 text-center font-bold uppercase">
+								<p className="text sm">
+									{renderContent("Sign In", "Create Account")}
+								</p>
+							</div>
+							<div className="m-auto">
+								<h2 className="text-center text-2xl font-light">
+									{renderContent(
+										"Log in",
+										"Create Your OpenTable Account"
+									)}
+								</h2>
+								<AuthModalInputs
+									inputs={inputs}
+									handleChange={handleChangeInput}
+									isSignedIn={isSignedIn}
+								/>
+								<button
+									className="mb-5 w-full rounded bg-red-600 p-3 text-sm uppercase text-white disabled:bg-gray-400"
+									disabled={disabled}
+									onClick={handleClick}
+								>
+									{renderContent("Sign in", "Create Account")}
+								</button>
+							</div>
 						</div>
-					</div>
+					)}
 				</Box>
 			</Modal>
 		</div>
