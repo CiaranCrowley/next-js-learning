@@ -1,12 +1,10 @@
 import { AuthenticationContext } from "@/app/context/AuthContext";
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { deleteCookie } from "cookies-next";
 import { useContext } from "react";
 
 const useAuth = () => {
-	const { loading, data, error, setAuthState } = useContext(
-		AuthenticationContext
-	);
+	const { setAuthState } = useContext(AuthenticationContext);
 
 	const signIn = async (
 		{
@@ -98,7 +96,17 @@ const useAuth = () => {
 		}
 	};
 
-	return { signIn, signUp };
+	const signOut = () => {
+		deleteCookie("jwt");
+
+		setAuthState({
+			loading: false,
+			data: null,
+			error: null,
+		});
+	};
+
+	return { signIn, signUp, signOut };
 };
 
 export default useAuth;
