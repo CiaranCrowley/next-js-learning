@@ -63,8 +63,10 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 
 	const handleClick = () => {
 		if (isSignedIn) {
-			signIn({ email: inputs.email, password: inputs.password });
-		} else {
+			signIn(
+				{ email: inputs.email, password: inputs.password },
+				handleClose
+			);
 		}
 	};
 
@@ -112,7 +114,6 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 								<p className="text sm">
 									{renderContent("Sign In", "Create Account")}
 								</p>
-								A
 							</div>
 							<div className="m-auto">
 								<h2 className="text-center text-2xl font-light">
