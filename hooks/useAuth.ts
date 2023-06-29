@@ -1,5 +1,6 @@
 import { AuthenticationContext } from "@/app/context/AuthContext";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 import { useContext } from "react";
 
 const useAuth = () => {
@@ -31,7 +32,6 @@ const useAuth = () => {
 					password,
 				}
 			);
-			console.log(response);
 			setAuthState({
 				loading: false,
 				data: response.data,
@@ -83,7 +83,6 @@ const useAuth = () => {
 					phone,
 				}
 			);
-			console.log(response);
 			setAuthState({
 				loading: false,
 				data: response.data,
