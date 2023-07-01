@@ -67,8 +67,9 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 				{ email: inputs.email, password: inputs.password },
 				handleClose
 			);
+			console.log("Successful sign in");
 		} else {
-			signUp(inputs, handleClose);
+			signUp(inputs , handleClose);
 		}
 	};
 
@@ -85,15 +86,17 @@ export default function AuthModal({ isSignedIn }: { isSignedIn: boolean }) {
 
 	return (
 		<div>
-			<button
-				className={`${renderContent(
-					"bg-blue-400 text-white",
-					""
-				)} mr-3 rounded border  p-1 px-4 `}
-				onClick={handleOpen}
-			>
-				{renderContent("Sign In", "Sign up")}
-			</button>
+			{loading ? null : (
+				<button
+					className={`${renderContent(
+						"bg-blue-400 text-white",
+						""
+					)} mr-3 rounded border  p-1 px-4 `}
+					onClick={handleOpen}
+				>
+					{renderContent("Sign In", "Sign up")}
+				</button>
+			)}
 			<Modal
 				open={open}
 				onClose={handleClose}

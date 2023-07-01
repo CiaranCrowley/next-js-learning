@@ -16,23 +16,21 @@ export default function NavBar() {
 				OpenTable
 			</Link>
 			<div>
-				{loading ? null : (
-					<div className="flex">
-						{data ? (
-							<button
-								className="mr-3 rounded border bg-blue-400 p-1  px-4 text-white"
-								onClick={signOut}
-							>
-								Sign out
-							</button>
-						) : (
-							<>
-								<AuthModal isSignedIn={true} />
-								<AuthModal isSignedIn={false} />
-							</>
-						)}
-					</div>
-				)}
+				<div className="flex">
+					{data ? (
+						<button
+							className="mr-3 rounded border bg-blue-400 p-1  px-4 text-white"
+							onClick={signOut}
+						>
+							Sign out
+						</button>
+					) : (
+						<>
+							<AuthModal isSignedIn={true} />
+							<AuthModal isSignedIn={false} />
+						</>
+					)}
+				</div>
 			</div>
 		</nav>
 	);
