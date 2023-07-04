@@ -4,10 +4,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const { slug, day, time, partySize } = req.query as {
 		slug: string;
 		day: string;
@@ -48,13 +45,12 @@ export default async function handler(
 	const bookingTablesObject: { [key: string]: { [key: number]: true } } = {};
 
 	bookings.forEach((booking) => {
-		bookingTablesObject[booking.booking_time.toISOString()] =
-			booking.tables.reduce((obj, table) => {
-				return {
-					...obj,
-					[table.table_id]: true,
-				};
-			}, {});
+		bookingTablesObject[booking.booking_time.toISOString()] = booking.tables.reduce((obj, table) => {
+			return {
+				...obj,
+				[table.table_id]: true,
+			};
+		}, {});
 	});
 
 	const restaurant = await prisma.restaurant.findUnique({
@@ -107,18 +103,12 @@ export default async function handler(
 			};
 		})
 		.filter((availability) => {
-			const timeIsAfterOpeningHour =
-				new Date(`${day}T${availability.time}`) >=
-				new Date(`${day}T${restaurant.open_time}`);
+			const timeIsAfterOpeningHour = new Date(`${day}T${availability.time}`) >= new Date(`${day}T${restaurant.open_time}`);
 
-			const timeIsBeforeClose =
-				new Date(`${day}T${availability.time}`) <=
-				new Date(`${day}T${restaurant.close_time}`);
+			const timeIsBeforeClose = new Date(`${day}T${availability.time}`) <= new Date(`${day}T${restaurant.close_time}`);
 
 			return timeIsAfterOpeningHour && timeIsBeforeClose;
 		});
 
-	return res.json({
-		availabilities,
-	});
+	return res.json(availabilities);
 }
