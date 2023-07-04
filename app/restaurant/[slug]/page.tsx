@@ -45,11 +45,7 @@ const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
 	return restaurant;
 };
 
-export default async function RestaurantDetails({
-	params,
-}: {
-	params: { slug: string };
-}) {
+export default async function RestaurantDetails({ params }: { params: { slug: string } }) {
 	const restaurant = await fetchRestaurantBySlug(params.slug);
 	// console.log(restaurant);
 
@@ -64,10 +60,7 @@ export default async function RestaurantDetails({
 				<Reviews reviews={restaurant.reviews} />
 			</div>
 			<div className="text-reg relative w-[27%]">
-				<ReservationsCard
-					open_time={restaurant.open_time}
-					close_time={restaurant.close_time}
-				/>
+				<ReservationsCard open_time={restaurant.open_time} close_time={restaurant.close_time} slug={restaurant.slug} />
 			</div>
 		</>
 	);

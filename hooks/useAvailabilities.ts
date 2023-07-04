@@ -17,18 +17,17 @@ export default function useAvailabilities() {
 		day: string;
 		time: string;
 	}) => {
+		console.log({ slug, partySize, day, time });
+
 		setLoading(true);
 		try {
-			const response = await axios.get(
-				`http://localhost:3000/api/restaurant/${slug}/availability`,
-				{
-					params: {
-						day,
-						time,
-						partySize,
-					},
-				}
-			);
+			const response = await axios.get(`http://localhost:3000/api/restaurant/${slug}/availability`, {
+				params: {
+					day,
+					time,
+					partySize,
+				},
+			});
 			console.log(response);
 			setLoading(false);
 			setData(response.data);
