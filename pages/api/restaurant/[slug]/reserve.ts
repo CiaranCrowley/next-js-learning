@@ -72,7 +72,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		}
 	});
 
-	return res.json({ tablesCount });
+	const tableToBooks: number[] = [];
+	let seatsRemaining = parseInt(partySize);
+
+	while (seatsRemaining > 0) {
+		if (seatsRemaining >= 3) {
+			if (tablesCount[4].length) {
+				tableToBooks.push(tablesCount[4][0]);
+				tablesCount[4].shift();
+				seatsRemaining = seatsRemaining - 4;
+			} else {
+				tableToBooks.push(tablesCount[2][0]);
+				tablesCount[2].shift();
+				seatsRemaining = seatsRemaining - 2;
+			}
+		} else {
+			if (tablesCount[2].length) {
+				tableToBooks.push(tablesCount[2][0]);
+				tablesCount[2].shift();
+				seatsRemaining = seatsRemaining - 2;
+			} else {
+				tableToBooks.push(tablesCount[4][0]);
+				tablesCount[4].shift();
+				seatsRemaining = seatsRemaining - 4;
+			}
+		}
+	}
+
+	return res.json({ tableToBooks });
 }
 
 // http://localhost:8090/api/restaurant/vivaan-fine-indian-cuisine-ottawa/reserve?day=2023-02-03&time=15:00:00.000Z&partySize=8
