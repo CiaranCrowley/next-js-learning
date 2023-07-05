@@ -1,9 +1,14 @@
 "use client";
 
+import useReservation from "@/hooks/useReservation";
+import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-export default function ReservationForm() {
+export default function ReservationForm({ slug, partySize, date }: { slug: string; partySize: string; date: string }) {
+	const [day, time] = date.split("T");
 	const [disabled, setDisabled] = useState(true);
+	const { error, loading, createReservation } = useReservation();
+
 	const [inputs, setInputs] = useState({
 		first_name: "",
 		last_name: "",
@@ -22,9 +27,24 @@ export default function ReservationForm() {
 
 	useEffect(() => {
 		if (inputs.first_name && inputs.last_name && inputs.phone && inputs.email) {
-			return setDisabled(false)
-		} else return setDisabled(true)
+			return setDisabled(false);
+		} else return setDisabled(true);
 	}, [inputs]);
+
+	const handleClick = async () => {
+		const response = await createReservation({
+			slug,
+			partySize,
+			day,
+			time,
+			first_name: inputs.first_name,
+			last_name: inputs.last_name,
+			phone: inputs.phone,
+			email: inputs.email,
+			occasion: inputs.occasion,
+			requests: inputs.requests,
+		});
+	};
 
 	return (
 		<div className="mt-10 flex w-[660px] flex-wrap justify-between">
@@ -76,8 +96,12 @@ export default function ReservationForm() {
 				value={inputs.requests}
 				onChange={handleChange}
 			/>
-			<button disabled={disabled} className="w-full rounded bg-red-600 p-3 font-bold text-white disabled:bg-gray-300">
-				Complete reservation
+			<button
+				disabled={disabled || loading}
+				className="w-full rounded bg-red-600 p-3 font-bold text-white disabled:bg-gray-300"
+				onClick={handleClick}
+			>
+				{loading ? <CircularProgress color="inherit" /> : "Complete Reservation"}
 			</button>
 			<p className="mt-4 text-sm">
 				By clicking “Complete reservation” you agree to the OpenTable Terms of Use and Privacy Policy. Standard text message
