@@ -5,7 +5,10 @@ import { findTables } from "../../../../services/restaurant/findTables";
 
 const prisma = new PrismaClient();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
 	if (req.method === "GET") {
 		const { slug, day, time, partySize } = req.query as {
 			slug: string;
@@ -62,9 +65,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				};
 			})
 			.filter((availability) => {
-				const timeIsAfterOpeningHour = new Date(`${day}T${availability.time}`) >= new Date(`${day}T${restaurant.open_time}`);
+				const timeIsAfterOpeningHour =
+					new Date(`${day}T${availability.time}`) >=
+					new Date(`${day}T${restaurant.open_time}`);
 				const timeIsBeforeClosingHour =
-					new Date(`${day}T${availability.time}`) <= new Date(`${day}T${restaurant.close_time}`);
+					new Date(`${day}T${availability.time}`) <=
+					new Date(`${day}T${restaurant.close_time}`);
 
 				return timeIsAfterOpeningHour && timeIsBeforeClosingHour;
 			});

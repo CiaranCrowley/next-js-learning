@@ -2,7 +2,17 @@ import { displayTimes, Time } from "@/utils/displayTimes";
 import { format } from "date-fns";
 import React from "react";
 
-export default function Header({ image, name, date, people }: { image: string; name: string; date: string; people: string }) {
+export default function Header({
+	image,
+	name,
+	date,
+	people,
+}: {
+	image: string;
+	name: string;
+	date: string;
+	people: string;
+}) {
 	const [day, time] = date.split("T");
 
 	return (

@@ -4,7 +4,15 @@ import useReservation from "@/hooks/useReservation";
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-export default function ReservationForm({ slug, partySize, date }: { slug: string; partySize: string; date: string }) {
+export default function ReservationForm({
+	slug,
+	partySize,
+	date,
+}: {
+	slug: string;
+	partySize: string;
+	date: string;
+}) {
 	const [day, time] = date.split("T");
 	const [disabled, setDisabled] = useState(true);
 	const { error, loading, createReservation } = useReservation();
@@ -26,7 +34,12 @@ export default function ReservationForm({ slug, partySize, date }: { slug: strin
 	};
 
 	useEffect(() => {
-		if (inputs.first_name && inputs.last_name && inputs.phone && inputs.email) {
+		if (
+			inputs.first_name &&
+			inputs.last_name &&
+			inputs.phone &&
+			inputs.email
+		) {
 			return setDisabled(false);
 		} else return setDisabled(true);
 	}, [inputs]);
@@ -101,11 +114,16 @@ export default function ReservationForm({ slug, partySize, date }: { slug: strin
 				className="w-full rounded bg-red-600 p-3 font-bold text-white disabled:bg-gray-300"
 				onClick={handleClick}
 			>
-				{loading ? <CircularProgress color="inherit" /> : "Complete Reservation"}
+				{loading ? (
+					<CircularProgress color="inherit" />
+				) : (
+					"Complete Reservation"
+				)}
 			</button>
 			<p className="mt-4 text-sm">
-				By clicking “Complete reservation” you agree to the OpenTable Terms of Use and Privacy Policy. Standard text message
-				rates may apply. You may opt out of receiving text messages at any time.
+				By clicking “Complete reservation” you agree to the OpenTable Terms
+				of Use and Privacy Policy. Standard text message rates may apply.
+				You may opt out of receiving text messages at any time.
 			</p>
 		</div>
 	);

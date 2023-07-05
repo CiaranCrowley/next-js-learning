@@ -15,7 +15,7 @@ export default function RestaurantLayout({
 }) {
 	return (
 		<main>
-			<Header name={params.slug}/>
+			<Header name={params.slug} />
 			<div className="0 m-auto -mt-11 flex w-2/3 items-start justify-between">
 				{children}
 			</div>

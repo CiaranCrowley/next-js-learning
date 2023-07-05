@@ -86,7 +86,13 @@ export default function ReservationsCard({
 				</div>
 				<div className="flex w-[48%] flex-col">
 					<label htmlFor="">Time</label>
-					<select name="" id="" className="border-b py-3 font-light" value={time} onChange={(e) => setTime(e.target.value)}>
+					<select
+						name=""
+						id=""
+						className="border-b py-3 font-light"
+						value={time}
+						onChange={(e) => setTime(e.target.value)}
+					>
 						{filterTimeByRestaurantOpenWindow().map((time) => (
 							<option value={time.time}>{time.displayTime}</option>
 						))}
@@ -94,7 +100,11 @@ export default function ReservationsCard({
 				</div>
 			</div>
 			<div className="mt-5">
-				<button className="h-16 w-full rounded bg-red-600 px-4 font-bold text-white" onClick={handleClick} disabled={loading}>
+				<button
+					className="h-16 w-full rounded bg-red-600 px-4 font-bold text-white"
+					onClick={handleClick}
+					disabled={loading}
+				>
 					{loading ? <CircularProgress color="inherit" /> : "Find a Time"}
 				</button>
 			</div>
@@ -108,7 +118,9 @@ export default function ReservationsCard({
 									href={`/reserve/${slug}?data=${day}T${time.time}&partySize=${partySize}`}
 									className="mb-3 mr-3 w-24 cursor-pointer rounded bg-red-600 p-2 text-center text-white"
 								>
-									<p className="text-sm font-bold">{displayTimes(time.time as Time)}</p>
+									<p className="text-sm font-bold">
+										{displayTimes(time.time as Time)}
+									</p>
 								</Link>
 							) : (
 								<p className="mb-3 mr-3 w-24 rounded bg-gray-300 p-2"></p>

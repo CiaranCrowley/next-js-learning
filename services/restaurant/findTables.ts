@@ -46,12 +46,13 @@ export const findTables = async ({
 	const bookingTablesObj: { [key: string]: { [key: number]: true } } = {};
 
 	bookings.forEach((booking) => {
-		bookingTablesObj[booking.booking_time.toISOString()] = booking.tables.reduce((obj, table) => {
-			return {
-				...obj,
-				[table.table_id]: true,
-			};
-		}, {});
+		bookingTablesObj[booking.booking_time.toISOString()] =
+			booking.tables.reduce((obj, table) => {
+				return {
+					...obj,
+					[table.table_id]: true,
+				};
+			}, {});
 	});
 
 	const tables = restaurant.tables;
