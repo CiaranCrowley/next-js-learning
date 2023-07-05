@@ -10,7 +10,7 @@ export default function useReservation() {
 		partySize,
 		day,
 		time,
-      first_name,
+		first_name,
 		last_name,
 		phone,
 		email,
@@ -45,7 +45,7 @@ export default function useReservation() {
 			);
 			// console.log(response);
 			setLoading(false);
-         return response.data
+			return response.data;
 		} catch (error: any) {
 			setLoading(false);
 			setError(error.response.data.errorMessage);

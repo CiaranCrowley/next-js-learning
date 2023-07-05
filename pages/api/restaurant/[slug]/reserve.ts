@@ -4,7 +4,10 @@ import { findTables } from "../../../../services/restaurant/findTables";
 
 const prisma = new PrismaClient();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
 	if (req.method === "POST") {
 		const { slug, day, time, partySize } = req.query as {
 			slug: string;
@@ -13,7 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			partySize: string;
 		};
 
-		const { bookerEmail, bookerPhone, bookerFirstName, bookerLastName, bookerOccasion, bookerRequest } = req.body;
+		const { first_name, last_name, phone, email, occasion, requests } =
+			req.body;
 
 		const restaurant = await prisma.restaurant.findUnique({
 			where: {
@@ -34,8 +38,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		}
 
 		if (
-			new Date(`${day}T${time}`) < new Date(`${day}T${restaurant.open_time}`) ||
-			new Date(`${day}T${time}`) > new Date(`${day}T${restaurant.close_time}`)
+			new Date(`${day}T${time}`) <
+				new Date(`${day}T${restaurant.open_time}`) ||
+			new Date(`${day}T${time}`) >
+				new Date(`${day}T${restaurant.close_time}`)
 		) {
 			return res.status(400).json({
 				errorMessage: "Restaurant is not open at that time",
@@ -56,7 +62,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		}
 
 		const searchTimeWithTables = searchTimesWithTables.find((t) => {
-			return t.date.toISOString() === new Date(`${day}T${time}`).toISOString();
+			return (
+				t.date.toISOString() === new Date(`${day}T${time}`).toISOString()
+			);
 		});
 
 		if (!searchTimeWithTables) {
@@ -112,12 +120,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			data: {
 				number_of_people: parseInt(partySize),
 				booking_time: new Date(`${day}T${time}`),
-				booker_email: bookerEmail,
-				booker_phone: bookerPhone,
-				booker_first_name: bookerFirstName,
-				booker_last_name: bookerLastName,
-				booker_occasion: bookerOccasion,
-				booker_request: bookerRequest,
+				booker_email: email,
+				booker_phone: phone,
+				booker_first_name: first_name,
+				booker_last_name: last_name,
+				booker_occasion: occasion,
+				booker_request: requests,
 				restaurant_id: restaurant.id,
 			},
 		});
