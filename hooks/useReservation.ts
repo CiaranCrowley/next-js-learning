@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 
 export default function useReservation() {
 	const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ export default function useReservation() {
 		email,
 		occasion,
 		requests,
+		setSuccess,
 	}: {
 		slug: string;
 		partySize: string;
@@ -27,6 +28,7 @@ export default function useReservation() {
 		email: string;
 		occasion: string;
 		requests: string;
+		setSuccess: Dispatch<React.SetStateAction<boolean>>;
 	}) => {
 		console.log({ slug, partySize, day, time });
 
@@ -45,6 +47,7 @@ export default function useReservation() {
 			);
 			// console.log(response);
 			setLoading(false);
+			setSuccess(true);
 			return response.data;
 		} catch (error: any) {
 			setLoading(false);
